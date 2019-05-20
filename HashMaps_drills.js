@@ -112,28 +112,23 @@ hasher = (str) => {
 
 pHash = (str) => {
     let ourHash = new hash();
-    let singleCount = 0;
-    let pairCount = 0;
-    let difference = pairCount - singleCount;
+    let count = 0;
     for(let j = 0; j < str.length; j++){
-        ourHash.set(str[j],j);
-        // if (!ourHash.getb(str[j])) {
-        //     ourHash.set(str[j], j);
-        //     singleCount++;
-        // }else{
-        //     ourHash.set(str[j], j);
-        //     pairCount = pairCount + 2
-        //     singleCount = singleCount - 2;
-        //     console.log(pairCount, difference, singleCount)
-        // }
+        if (!ourHash.getb(str[j])) {
+            ourHash.set(str[j], j);
+           count++;
+        }else{
+            ourHash.set(str[j], j);
+            count--;
+        }
     }
-    return ourHash
+ 
+    if(count === 0 || count === 1){
+        return `${str} Is a palindrome`
+    }else{
+        return `${str} Is Not a palindrome`
+    }
+ }
+ 
+ console.log(pHash("acecarr"));
 
-    // if(difference === pairCount - 1){
-    //     return `${str} Is a palindrome`
-    // }else{
-    //     return `${str} Is Not a palindrome`
-    // }
-}
-
-console.log(pHash("yeebeey"));

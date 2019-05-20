@@ -130,5 +130,22 @@ pHash = (str) => {
     }
  }
  
- console.log(pHash("acecarr"));
+//  console.log(pHash("acecarr"));
+
+ anagramFinder = (arr) =>{
+     let table = new hash();
+     
+
+     for(let i=0; i< arr.length; i++){
+        //  table.set(arr[i], i)
+        for(let j=0; j<arr[i].length; j++){
+
+            table.set(arr[i][j], j)
+        }
+     }
+     
+     return table;
+ }
+
+ console.log(anagramFinder(['east', 'cars', 'acre', 'arcs', 'teas', 'eats', 'race']))
 

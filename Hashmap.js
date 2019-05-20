@@ -14,6 +14,14 @@ class HashMap {
         return this._hashTable[index].value;
     }
 
+    getb(key) {
+        const index = this._findSlot(key);
+        if (this._hashTable[index] === undefined) {
+            return false
+        }
+        return true;
+    }
+
     set(key, value){
         const loadRatio = (this.length + this._deleted + 1) / this._capacity;
         if (loadRatio > HashMap.MAX_LOAD_RATIO) {

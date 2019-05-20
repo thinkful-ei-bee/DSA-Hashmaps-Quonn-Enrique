@@ -57,10 +57,10 @@ main = () => {
 // WhatDoesThisDo();
 
 hasher = (val, length) => {
-    return {val:val, index: val % length}
+    return { val: val, index: val % length }
 }
 
-let hashVals = [ 5, 28, 19, 15, 20, 33, 12, 17, 10];
+let hashVals = [5, 28, 19, 15, 20, 33, 12, 17, 10];
 
 // hashVals.forEach(val => {
 //     console.log(hasher(val,9))
@@ -69,31 +69,71 @@ let hashVals = [ 5, 28, 19, 15, 20, 33, 12, 17, 10];
 
 // .3) Demonstrate the undersranding of hash maps
 //array = [10, 22, 31, 4, 15, 28, 17, 88, 59]
-let openOrder = { "0": 22,
-              "1": 88,
-              "4": 4,
-              "5": 15,
-              "6": 59,
-              "7": 28,
-              "8": 17,
-              "9": 31,
-              "10":10
+let openOrder = {
+    "0": 22,
+    "1": 88,
+    "4": 4,
+    "5": 15,
+    "6": 59,
+    "7": 28,
+    "8": 17,
+    "9": 31,
+    "10": 10
 }
 
 
 //array = [ 5, 28, 19, 15, 20, 33, 12, 17, 10]
 
 let sepearteOrder = {
-                "1": "28,19,10",
-                "2": 20,
-                "3": 12,
-                "5": 5,
-                "6": "15,33",
-                "8": 17
-} 
-
-hasher = (str) => {
-    console.log(str.length)
+    "1": "28,19,10",
+    "2": 20,
+    "3": 12,
+    "5": 5,
+    "6": "15,33",
+    "8": 17
 }
 
-hasher("fred");
+
+// .4) Remove duplicates
+
+hasher = (str) => {
+    let hashTable = new hash();
+    for (let i = 0; i < str.length; i++) {
+        if (!hashTable.getb(str[i])) {
+            hashTable.set(str[i], i);
+        }
+    }
+    return hashTable;
+}
+
+// console.log(hasher("google all that you think can think of"));
+
+//.5) Any permutation a palindrome
+
+pHash = (str) => {
+    let ourHash = new hash();
+    let singleCount = 0;
+    let pairCount = 0;
+    let difference = pairCount - singleCount;
+    for(let j = 0; j < str.length; j++){
+        ourHash.set(str[j],j);
+        // if (!ourHash.getb(str[j])) {
+        //     ourHash.set(str[j], j);
+        //     singleCount++;
+        // }else{
+        //     ourHash.set(str[j], j);
+        //     pairCount = pairCount + 2
+        //     singleCount = singleCount - 2;
+        //     console.log(pairCount, difference, singleCount)
+        // }
+    }
+    return ourHash
+
+    // if(difference === pairCount - 1){
+    //     return `${str} Is a palindrome`
+    // }else{
+    //     return `${str} Is Not a palindrome`
+    // }
+}
+
+console.log(pHash("yeebeey"));

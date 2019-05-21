@@ -28,31 +28,36 @@ main = () => {
 
 // main();
 
-//.1) Create a HashMap class
-//All items hashed
-//Sauron & Frodo
-//Final capacity is 24, because our initial size was 8 and our
-//SIZE_RATIO = 3 (8 * 3 === 24)
+// 1) Show your hash map after the insertion of keys 10, 22, 31, 4, 15, 28, 17, 88, 59 
+// into a hash map of length m = 11 using open addressing and a hash function k mod m.
+// ************
+// | 22 | 88  |   |   | 4  | 15  | 28 | 17  | 59 | 31 |  10
+// -----------------------------------------------------------
+//   0    1     2   3   4    5     6    7     8    9     10
+// 15 has a collision so it will go to slot 5
+// 17 has a collision and will go to slot 7
+// 88 has a collision and will go to slot 1
+// 59 has a collision and will go to slot 8
 
 //2. WhatDoesThisDo
 //Creates 2 new hash maps with 2 new nodes apeice
 //Should output 10, then 20
 
-// const WhatDoesThisDo = function(){
-//     let str1 = 'Hello World.';
-//     let str2 = 'Hello World.';
-//     let map1 = new hash();
-//     map1.set(str1,10);
-//     map1.set(str2,20);
-//     let map2 = new hash();
-//     let str3 = str1;
-//     let str4 = str2;
-//     map2.set(str3,20);
-//     map2.set(str4,10);
+const WhatDoesThisDo = function(){
+    let str1 = 'Hello World.';
+    let str2 = 'Hello World.';
+    let map1 = new hash();
+    map1.set(str1,10);
+    map1.set(str2,20);
+    let map2 = new hash();
+    let str3 = str1;
+    let str4 = str2;
+    map2.set(str3,20);
+    map2.set(str4,10);
 
-//     console.log(map1.get(str2));
-//     console.log(map2.get(str4));
-// }
+    console.log(map1.get(str2));
+    console.log(map2.get(str4));
+}
 
 // WhatDoesThisDo();
 
@@ -110,42 +115,45 @@ hasher = (str) => {
 
 //.5) Any permutation a palindrome
 
-pHash = (str) => {
-    let ourHash = new hash();
-    let count = 0;
-    for(let j = 0; j < str.length; j++){
-        if (!ourHash.getb(str[j])) {
-            ourHash.set(str[j], j);
-           count++;
-        }else{
-            ourHash.set(str[j], j);
-            count--;
+function isItPalindrome(string){
+    let oddChar = false;
+    let hm = new Map(); //JS built in HashMap
+    let value;
+    for(let i=0;i<string.length;i++){
+        if(hm.has(string[i])){
+            let value = hm.get(string[i]);
+            hm.set(string[i],(value+1));
         }
+        else{
+            hm.set(string[i],1);
+       }
     }
- 
-    if(count === 0 || count === 1){
-        return `${str} Is a palindrome`
-    }else{
-        return `${str} Is Not a palindrome`
+    const iterator = hm.values(); //just getting the values
+    if(Math.floor(iterator.next().value) % 2 !== 0){
+        oddChar = true;
     }
- }
+    if(oddChar) return false;
+    return true;
+}
  
-//  console.log(pHash("acecarr"));
+  console.log(isItPalindrome("yeebeey"));
 
- anagramFinder = (arr) =>{
-     let table = new hash();
-     
+  const anagrams = (words) => {
+    const groups = new Map();
+    words.forEach(word => {
+        const sorted = sort(word);
+        const group = groups.get(sorted) || [];
+        groups.set(sorted, [...group, word]);
+    })
+    return Array.from(groups.values());
+};
 
-     for(let i=0; i< arr.length; i++){
-        //  table.set(arr[i], i)
-        for(let j=0; j<arr[i].length; j++){
+console.log(anagrams(['east', 'cars', 'acre', 'arcs', 'teas', 'eats', 'race']));
+/* should output:
+[ [ 'east', 'teas', 'eats' ],
+  [ 'cars', 'arcs' ],
+  [ 'acre', 'race' ] ]
+*/
 
-            table.set(arr[i][j], j)
-        }
-     }
-     
-     return table;
- }
 
- console.log(anagramFinder(['east', 'cars', 'acre', 'arcs', 'teas', 'eats', 'race']))
 
